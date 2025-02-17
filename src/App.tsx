@@ -1,6 +1,13 @@
 import { useState } from 'react';
-import { sculptureList } from './data.tsx';
+import { sculptureList } from './data';
 import "./style.css";
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import { Typography, Button, Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { FormControl, FormLabel } from "@mui/material";
 
 export default function Gallery() {
   const [index, setIndex] = useState(0);
@@ -22,34 +29,94 @@ export default function Gallery() {
     setShowMore(!showMore);
   }
 
+  function handleSelectChange(event: SelectChangeEvent<string>) {
+    const selectedIndex = sculptureList.findIndex(sculpture => sculpture.name === event.target.value);
+    if (selectedIndex !== -1) {
+      setIndex(selectedIndex);
+    }
+  }
+
   let sculpture = sculptureList[index];
   return (
-    <>
-      <h1>JOE PETE BRIOLA</h1>
-      <button onClick={handleNextClick}>
-        Next
-      </button>
-      <button onClick={handleBackClick}>
-        Back
-      </button>
-      <h2 className='boxerName'>
-        {sculpture.name} 
-      </h2>
-      <h3 className='address'>
-      {sculpture.place} <br />
-      {sculpture.records}
-      </h3>
-      <h3>  
-        ({index + 1} of {sculptureList.length})
-      </h3>
-      <button onClick={handleMoreClick}>
-        {showMore ? 'Hide' : 'Show'} details
-      </button>
-      {showMore && <p>{sculpture.description}</p>}
-      <img 
-        src={sculpture.url} 
-        alt={sculpture.alt}
-      />
-    </>
+    <Container maxWidth="sm" sx={{ width: '600px', height: 'auto', margin: '0 auto' }}>
+      <Box component="section" sx={{ p: 2, border: '1px solid gray' }}>
+        <>
+        <Typography variant="h4" component="h4">
+          <h1>JOE PETE BRIOLA</h1>
+        </Typography>
+          <Stack direction="row" spacing={2} justifyContent={'center'}>
+            <Button 
+              variant="contained"
+              onClick={handleNextClick}
+              color="primary"
+              startIcon={<ArrowForwardIosIcon />}
+              disabled={index === sculptureList.length - 1}>
+              <Typography variant="h6" component="h6">
+                NEXT
+              </Typography>
+            </Button>
+            <Button 
+                onClick={handleBackClick}
+                variant="contained"
+                color="primary"
+                startIcon={<ArrowBackIosNewIcon />}
+                disabled={index === 0}
+              >
+                <Typography variant="h6" component="h6">
+                  BACK
+                </Typography>
+            </Button>
+          </Stack>
+          
+          <Typography variant="h4" fontWeight={'bold'} paddingTop={4} component="h2">
+              {sculpture.name} 
+          </Typography>
+
+          <Typography variant="h6" fontSize={16} component="h6">
+              {sculpture.place} <br/>
+              {sculpture.records}
+          </Typography>
+
+          <Typography variant="h6" fontSize={12} paddingTop={3} component="h6">
+            ({index + 1} of {sculptureList.length})
+          </Typography>
+
+          <Button
+              onClick={handleMoreClick}
+              sx={{
+                margin: '5px',
+                backgroundColor: 'green',
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'darkgreen',
+                },
+              }}>
+              {showMore ? 'Hide' : 'Show'} details
+          </Button>
+
+        {showMore && <Typography variant="body1">{sculpture.description}</Typography>}
+          <img 
+            src={sculpture.url} 
+            alt={sculpture.alt}/>
+
+        <SelectComponent index={index} onChange={handleSelectChange} />
+        </>
+      </Box>
+    </Container>
+  );
+}
+
+function SelectComponent({ index, onChange }: { index: number; onChange: (event: SelectChangeEvent<string>) => void }) {
+  return (
+    <FormControl sx={{ m: 1, minWidth: 250 }} size="small">
+      <FormLabel>Select an artist</FormLabel>
+      <Select value={sculptureList[index].name} onChange={onChange}>
+        {sculptureList.map((sculpture, i) => (
+          <MenuItem key={i} value={sculpture.name}>
+            {sculpture.name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }

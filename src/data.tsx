@@ -80,6 +80,6 @@ export const sculptureList = [{
   place: 'General Santos City, Philippines',
   records: '62 WINS (39 BY KO), 8 LOSSES, 2 DRAWS',
   description: 'Furious combination of speed, power, and grit. First man to win lineal championships in four weight divisions. One of only two to ever do it. Fought at a world-class level across 10 weight divisions. Iconic hero in his native Philippines, and likely the most famous boxer worldwide post-Ali. Went 6–3–1 in four-way rivalry with other featherweight stars Barrera, Morales, and Marquez. Fight with Floyd Mayweather, Jr. is the richest in boxing history.',
-  url: 'https://miro.medium.com/v2/resize:fit:1100/format:webp/1*Cri8Pjkzlks6t1uaGl5ufg.jpeg',
+  url: 'https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcSzAKYoyxOKJyH42l0SyFLcxPrItF-Hz_XXJSTW7Jt2HyiossvA_9xENVz74Fw5rCf1BPVXp5kp8Sr6ptutKzff7uzIu2BupQfWZe7qhBCYopzM9kylLNL6lAxH5FfOQA1dBlwptO-i',
   alt: 'THE DESTROYER'
 }];
